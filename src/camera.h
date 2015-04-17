@@ -7,6 +7,9 @@ public:
   Camera();
   void setPosition ( float x, float y, float z );
   void setPosition ( glm::vec3 pos );
+  void setOrientation ( glm::vec3 or );
+  void setOrientation ( float x, float y, float z );
+  void setFOV ( float x, float y );
   glm::vec3 getPosition();
   void calculateViewingCoordinates();
 private:

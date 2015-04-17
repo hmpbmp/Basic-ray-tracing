@@ -3,18 +3,33 @@
 #include "image.h"
 #include "camera.h"
 #include "geometry.h"
+#include "yamlparser.h"
+#include <glm/gtc/matrix_transform.hpp>
+#include <string>
+#include <utility>
+
+struct Node {
+  glm::mat4 transform;
+  Object *obj;
+  std::vector<Node> children;
+};
 
 class RayTracer {
 public:
-  RayTracer();
+  RayTracer ( int w, int h );
   void traceRays();
+  void saveToFile ( std::string s );
+  void setCameraFromYAML ( YAMLObject *camera );
+  void setHierarchyFromYAML ( YAMLObject *head );
 private:
-  Color traceRay ( Ray ray );
-
+  std::pair<Color,Color> traceRay ( Ray ray );
+  void traceRayForNode ( Ray ray, Node node );
+  void setHierarchyFromYAML ( YAMLObject *head , Node &node );
+  std::vector<Intersection> in;
   Camera camera;
-  Image image;
+  Image distImage, normImage;
   int width, height;
-  //Node node;
+  Node head;
   Sphere sphere;
 };
 

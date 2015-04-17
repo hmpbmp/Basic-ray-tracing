@@ -6,7 +6,7 @@ class Image {
 public:
   Image ( int w, int h );
   void setPixelColor ( int x, int y, Color color );
-  void saveImage ( char *filename );
+  void saveImage ( const char *filename );
 private:
   int width,height;
   unsigned char* img;

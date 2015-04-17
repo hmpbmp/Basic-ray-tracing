@@ -11,19 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\argumentsparser.h" />
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\geometry.h" />
     <ClInclude Include="src\image.h" />
     <ClInclude Include="src\ray.h" />
     <ClInclude Include="src\raytracer.h" />
     <ClInclude Include="src\utils.h" />
+    <ClInclude Include="src\yamlparser.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\argumentsparser.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\geometry.cpp" />
     <ClCompile Include="src\image.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\raytracer.cpp" />
+    <ClCompile Include="src\yamlparser.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{470AA7F2-42B4-4FE3-92CA-273A026AAC18}</ProjectGuid>
@@ -61,7 +65,7 @@
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
     <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\build\$(Configuration)\</IntDir>
-    <LibraryPath>$(SolutionDir)lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -85,9 +89,12 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>yaml.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

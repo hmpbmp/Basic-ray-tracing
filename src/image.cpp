@@ -9,7 +9,7 @@ void Image::setPixelColor ( int x, int y, Color color ) {
   img[ ( x + y * width ) * 3 + 0] = color.blue;
 }
 
-void Image::saveImage ( char *filename ) {
+void Image::saveImage ( const char *filename ) {
   FILE *f;
   f = fopen ( filename,"wb" );
 

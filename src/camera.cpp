@@ -26,3 +26,16 @@ void Camera::calculateViewingCoordinates() {
   u = glm::normalize ( glm::cross ( up, w ) );
   v = glm::cross ( w, u );
 }
+
+void Camera::setOrientation ( glm::vec3 or ) {
+  orientation = or;
+}
+
+void Camera::setOrientation ( float x, float y, float z ) {
+  orientation = glm::vec3 ( x,y,z );
+}
+
+void Camera::setFOV ( float x, float y ) {
+  fov_x = x;
+  fov_y = y;
+}

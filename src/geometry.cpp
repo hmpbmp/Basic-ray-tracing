@@ -1,5 +1,6 @@
 #include "geometry.h"
 
+
 //Muller-Trumbore
 std::vector<Intersection> Triangle::intersect ( Ray ray ) {
   std::vector<Intersection> res;
@@ -36,6 +37,7 @@ std::vector<Intersection> Triangle::intersect ( Ray ray ) {
     Intersection inter;
     inter.param = t;
     inter.point = orig + t * dir;
+    inter.normal = glm::normalize ( glm::cross ( edge1,edge2 ) );
   }
   return res;
 }
@@ -62,6 +64,8 @@ std::vector <Intersection> Sphere::intersect ( Ray ray ) {
     Intersection inter;
     inter.param = x1;
     inter.point = orig + x1 * dir;
+    inter.normal = ( orig + x1 * dir ) / radius;
+    inter.dist = glm::distance ( inter.point, orig );
     res.push_back ( inter );
   }
 
@@ -69,11 +73,16 @@ std::vector <Intersection> Sphere::intersect ( Ray ray ) {
     Intersection inter;
     inter.param = x2;
     inter.point = orig + x2 * dir;
+    inter.normal = ( orig + x1 * dir ) / radius;
+    inter.dist = glm::distance ( inter.point, orig );
     res.push_back ( inter );
   }
 
   return res;
 }
+
+
+/*std::vector <Intersection> Torus::intersect ( Ray ray ) {    */
 
 
 

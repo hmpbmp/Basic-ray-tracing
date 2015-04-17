@@ -33,6 +33,12 @@
     <ClInclude Include="src\image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\argumentsparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yamlparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -48,6 +54,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\argumentsparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yamlparser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
