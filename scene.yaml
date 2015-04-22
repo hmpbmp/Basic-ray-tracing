@@ -1,15 +1,16 @@
 - camera:
-   position: {x: 0, y: 0, z: 1}
-   orientation: {h: 30, p: 15, r: 7.5}
+   position: {x: -7, y: -7, z: 0}
+   orientation: {h: 20, p: 10, r: 10}
    fov_x: 90
    fov_y: 60
 
 - node:
-   - lcs : {x: 0, y: 0, z: 0, h: 90, p: 34, r: 0, sx: 1, sy: 1, sz: 1}
-   - sphere: 
-      radius: 125
-   - node : 
-      - lcs : {x: 0, y: 0, z: 0, h: 90, p: 34, r: 0, sx: 1, sy: 1, sz: 1}
+   - lcs : {x: 0, y: 0, z: 0, h: 90, p: 0, r: 0, sx: 1, sy: 1, sz: 1}
+   - cylinder: 
+      radius: 1
+      height: 2
+   - node: 
+      - lcs : {x: 3, y: 0, z: 0, h: 0, p: 0, r: 0, sx: 1, sy: 1, sz: 1}
       - sphere: 
-          radius: 100
+         radius: 1
    

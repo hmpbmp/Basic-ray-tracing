@@ -31,14 +31,14 @@ struct NormalComparator {
 
 class Object {
 public:
-  virtual std::vector<Intersection> intersect ( Ray ray ) = 0 {};
+  virtual Intersection intersect ( Ray &ray ) = 0 {};
 };
 
 
 class Triangle : public Object {
 public:
   Triangle ( glm::vec3 first, glm::vec3 second, glm::vec3 third ) :p0 ( first ),p1 ( second ),p2 ( third ) {};
-  virtual std::vector<Intersection> intersect ( Ray ray );
+  virtual Intersection intersect ( Ray &ray );
 private:
   glm::vec3 p0,p1,p2;
 };
@@ -47,30 +47,35 @@ private:
 class Sphere : public Object {
 public:
   Sphere ( float r ) : radius ( r ) {};
-  virtual std::vector<Intersection> intersect ( Ray ray );
+  virtual Intersection intersect ( Ray &ray );
 private:
   float radius;
 };
 
 
-/*
 class Cylinder : public Object {
 public:
   Cylinder ( float r, float h ) : radius ( r ), height ( h ) {};
-  std::vector<Intersection> intersect ( Ray ray );
+  Intersection intersect ( Ray &ray );
 private:
   float radius, height;
 };
-
+/*
+class Cone : public Object {
+public:
+ Cone ( float r, float h ) : radius ( r ), height ( h ) {};
+ Intersection intersect ( Ray &ray );
+private:
+ float radius, height;
+}; */
 
 class Torus : public Object {
 public:
   Torus ( float rad, float tube_rad ) : radius ( rad ), tube_radius ( tube_rad ) {};
-  std::vector<Intersection> intersect ( Ray ray );
+  virtual Intersection intersect ( Ray &ray );
 private:
   float radius, tube_radius;
 };
-   */
 
 /*
 class ObjModel : public Object {

@@ -6,7 +6,7 @@ ArgumentsParser::ArgumentsParser ( int argc, char** argv ) {
   }
 }
 
-void ArgumentsParser::parseStr ( std::string str ) {
+void ArgumentsParser::parseStr ( std::string &str ) {
   if ( str.substr ( 0,8 ) == "--scene=" ) {
     scene = str.substr ( 8,str.size() - 8 );
     return;

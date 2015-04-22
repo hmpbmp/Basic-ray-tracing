@@ -1,7 +1,7 @@
 #include "yamlparser.h"
 
 
-YAMLParser::YAMLParser ( std::string scene ) {
+YAMLParser::YAMLParser ( std::string &scene ) {
 
   if ( ! ( scene.size() == 0 ) ) {
     yaml_parser_initialize ( &parser );

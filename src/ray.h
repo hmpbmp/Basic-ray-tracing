@@ -9,10 +9,10 @@ public:
   glm::vec3 getDirection() {
     return direction;
   }
-  void setOrigin ( glm::vec3 vec ) {
+  void setOrigin ( glm::vec3 &vec ) {
     origin = vec;
   }
-  void setDirection ( glm::vec3 vec ) {
+  void setDirection ( glm::vec3 &vec ) {
     direction = vec;
   }
 

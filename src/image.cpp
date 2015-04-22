@@ -3,15 +3,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Image::setPixelColor ( int x, int y, Color color ) {
+Image::Image ( int w, int h ) :width ( w ), height ( h ) {
+  img = ( unsigned char * ) malloc ( 3  *w * h );
+  memset ( img,0,sizeof ( img ) );
+  int filesize = 54 + 3 * w * h;
+  for ( int i = 0; i < w; i++ ) {
+    for ( int j = 0; j < h; j++ ) {
+      int x = i;
+      int y = ( height-1 ) - j;
+      img[ ( x + y * w ) * 3 + 2] = 0;
+      img[ ( x + y * w ) * 3 + 1] = 0;
+      img[ ( x + y * w ) * 3 + 0] = 0;
+    }
+  }
+
+  f_img = ( float * ) malloc ( 3  *w * h * sizeof ( float ) );
+  memset ( f_img,0,sizeof ( f_img ) );
+  for ( int i = 0; i < w; i++ ) {
+    for ( int j = 0; j < h; j++ ) {
+      int x = i;
+      int y = ( height-1 ) - j;
+      f_img[ ( x + y * w ) * 3 + 2] = 0.0f;
+      f_img[ ( x + y * w ) * 3 + 1] = 0.0f;
+      f_img[ ( x + y * w ) * 3 + 0] = 0.0f;
+    }
+  }
+}
+
+void Image::setPixelColor ( int x, int y, Color &color ) {
   img[ ( x + y * width ) * 3 + 2] = color.red;
   img[ ( x + y * width ) * 3 + 1] = color.green;
   img[ ( x + y * width ) * 3 + 0] = color.blue;
 }
 
+void Image::setFloat ( int x, int y, float f ) {
+  f_img[ ( x + y * width ) * 3 + 2] = f;
+  f_img[ ( x + y * width ) * 3 + 1] = f;
+  f_img[ ( x + y * width ) * 3 + 0] = f;
+}
+
 void Image::saveImage ( const char *filename ) {
   FILE *f;
   f = fopen ( filename,"wb" );
+
+
 
   unsigned char bmpfileheader[14] = {'B','M', 0,0,0,0, 0,0, 0,0, 54,0,0,0};
   unsigned char bmpinfoheader[40] = {40,0,0,0, 0,0,0,0, 0,0,0,0, 1,0, 24,0};
@@ -40,17 +75,24 @@ void Image::saveImage ( const char *filename ) {
   fclose ( f );
 }
 
-Image::Image ( int w, int h ) :width ( w ), height ( h ) {
-  img = ( unsigned char * ) malloc ( 3  *w * h );
-  memset ( img,0,sizeof ( img ) );
-  int filesize = 54 + 3 * w * h;
-  for ( int i = 0; i < w; i++ ) {
-    for ( int j = 0; j < h; j++ ) {
+void Image::normalize ( float min, float max ) {
+  for ( int i = 0; i < width; i++ ) {
+    for ( int j = 0; j < height; j++ ) {
       int x = i;
       int y = ( height-1 ) - j;
-      img[ ( x + y * w ) * 3 + 2] = 0;
-      img[ ( x + y * w ) * 3 + 1] = 0;
-      img[ ( x + y * w ) * 3 + 0] = 0;
+      if (  f_img[ ( x + y * width ) * 3 + 2] > 0.0f ) {
+        img[ ( x + y * width ) * 3 + 2] = ( unsigned char ) ( ( 1 - ( f_img[ ( x + y * width ) * 3 + 2] - min ) / ( max - min ) ) * 255.0f ) ;
+        //img[ ( x + y * width ) * 3 + 2] = ( unsigned char ) ( ( ( f_img[ ( x + y * width ) * 3 + 2] - min ) / ( max - min ) ) * 255.0f ) ;
+      }
+      if (  f_img[ ( x + y * width ) * 3 + 1] > 0.0f ) {
+        img[ ( x + y * width ) * 3 + 1] = ( unsigned char ) ( ( 1 - ( f_img[ ( x + y * width ) * 3 + 1] - min ) / ( max - min ) ) * 255.0f ) ;
+        //img[ ( x + y * width ) * 3 + 1] = ( unsigned char ) ( ( ( f_img[ ( x + y * width ) * 3 + 1] - min ) / ( max - min ) ) * 255.0f ) ;
+      }
+      if (  f_img[ ( x + y * width ) * 3 + 0] > 0.0f ) {
+        img[ ( x + y * width ) * 3 + 0] = ( unsigned char ) ( ( 1 - ( f_img[ ( x + y * width ) * 3 + 0] - min ) / ( max - min ) ) * 255.0f ) ;
+        //img[ ( x + y * width ) * 3 + 0] = ( unsigned char ) ( ( ( f_img[ ( x + y * width ) * 3 + 0] - min ) / ( max - min ) ) * 255.0f ) ;
+      }
     }
   }
 }
+

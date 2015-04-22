@@ -5,18 +5,29 @@
 class Camera {
 public:
   Camera();
-  void setPosition ( float x, float y, float z );
-  void setPosition ( glm::vec3 pos );
-  void setOrientation ( glm::vec3 or );
-  void setOrientation ( float x, float y, float z );
-  void setFOV ( float x, float y );
   glm::vec3 getPosition();
-  void calculateViewingCoordinates();
+  void setPosition ( float x, float y, float z );
+  void setPosition ( glm::vec3 &pos );
+
+  glm::vec3 getOrientation();
+  void setOrientation ( glm::vec3 &or );
+  void setOrientation ( float x, float y, float z );
+
+  float getFOVX();
+  float getFOVY();
+  void setFOV ( float x, float y );
+
+  glm::vec3 getDirection();
+  void setDirection ( glm::vec3 &dir );
+
+  glm::vec3 getUp();
+  glm::vec3 getLookAt();
+
 private:
   glm::vec3 position;
   glm::vec3 orientation;
-  glm::vec3 up, lookat;
-  glm::vec3 w,u,v;
+  glm::vec3 up, lookat, dir;
+  glm::vec3 direction;
   float fov_x, fov_y;
 };
 

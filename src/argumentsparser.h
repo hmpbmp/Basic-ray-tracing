@@ -13,7 +13,7 @@ public:
   int getTraceDepth();
 
 private:
-  void parseStr ( std::string str );
+  void parseStr ( std::string &str );
   std::string scene;
   std::string output;
   int x_res, y_res;

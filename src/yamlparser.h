@@ -20,7 +20,7 @@ struct YAMLObject {
 
 class YAMLParser {
 public:
-  YAMLParser ( std::string scene );
+  YAMLParser ( std::string &scene );
   YAMLObject *getCameraObject();
   YAMLObject *getHeadObject();
 private:

@@ -18,19 +18,19 @@ class RayTracer {
 public:
   RayTracer ( int w, int h );
   void traceRays();
-  void saveToFile ( std::string s );
+  void saveToFile ( std::string &s );
   void setCameraFromYAML ( YAMLObject *camera );
   void setHierarchyFromYAML ( YAMLObject *head );
 private:
-  std::pair<Color,Color> traceRay ( Ray ray );
-  void traceRayForNode ( Ray ray, Node node );
+  std::pair<float,Color> traceRay ( Ray &ray );
+  void traceRayForNode ( Ray &ray, Node &node );
   void setHierarchyFromYAML ( YAMLObject *head , Node &node );
   std::vector<Intersection> in;
+  float max_dist,min_dist;
   Camera camera;
   Image distImage, normImage;
   int width, height;
   Node head;
-  Sphere sphere;
 };
 
 #endif
