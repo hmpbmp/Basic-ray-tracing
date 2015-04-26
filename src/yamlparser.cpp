@@ -105,3 +105,19 @@ YAMLObject *YAMLParser::getHeadObject() {
   }
   return NULL;
 }
+
+YAMLParser::~YAMLParser() {
+  main->release();
+  delete main;
+}
+
+void YAMLObject::release() {
+  for ( auto ch : this->array ) {
+    ch->release();
+    delete ch;
+  }
+  for ( auto ch : this->map ) {
+    ch.second->release();
+    delete ch.second;
+  }
+}

@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cfloat>
 
 Image::Image ( int w, int h ) :width ( w ), height ( h ) {
   img = ( unsigned char * ) malloc ( 3  *w * h );
@@ -75,7 +76,22 @@ void Image::saveImage ( const char *filename ) {
   fclose ( f );
 }
 
-void Image::normalize ( float min, float max ) {
+void Image::normalize () {
+  float min = FLT_MAX, max = 0.0f;
+  for ( int i = 0; i < width; i++ ) {
+    for ( int j = 0; j < height; j++ ) {
+      int x = i;
+      int y = ( height-1 ) - j;
+      if ( f_img[ ( x + y * width ) * 3] < min && f_img[ ( x + y * width ) * 3] > FLT_EPSILON ) {
+        min = f_img[ ( x + y * width ) * 3];
+      }
+      if ( f_img[ ( x + y * width ) * 3] > max ) {
+        max = f_img[ ( x + y * width ) * 3];
+      }
+    }
+  }
+
+
   for ( int i = 0; i < width; i++ ) {
     for ( int j = 0; j < height; j++ ) {
       int x = i;

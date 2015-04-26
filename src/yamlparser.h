@@ -10,6 +10,7 @@
 enum class YAMLObjType {Value, Map, Sequence};
 
 struct YAMLObject {
+  void release();
   std::string name;
   YAMLObjType type;
   std::string value;
@@ -21,6 +22,7 @@ struct YAMLObject {
 class YAMLParser {
 public:
   YAMLParser ( std::string &scene );
+  ~YAMLParser();
   YAMLObject *getCameraObject();
   YAMLObject *getHeadObject();
 private:

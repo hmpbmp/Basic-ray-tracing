@@ -1,0 +1,49 @@
+---
+# Все углы задаются в градусах
+
+# Камера
+- camera:
+   position: {x: 0, y: 0, z: 1}
+   orientation: {h: 30, p: 15, r: 7.5}
+   fov_x: 60
+   fov_y: 30
+# Иерархия сцены
+- node:
+   - lcs : {x: 1, y: 1, z: 1, h: 90, p: 34, r: 0, sx: 1, sy: 1, sz: 1} # Преобразование на верхний уровень, sx, xy, sz - масштаб, hpr - ориентация, xyz - смещение
+   - geometry # Геометрия для отрисовки, описана нижн
+   - node: # Дочерний узел
+      #...
+   - node: # Дочерний узел
+      #...
+   - csg_union:   # Операция CSG (csg_union, csg_difference, csg_intersection)
+      left_node:  # Левый операнд CSG
+      right_node: # Правый операнд CSG
+
+# Виды геометрии
+---
+plane:
+   normal : {x: 1, y: 1, z:1}
+---
+triangle:
+   p0: {x: 1, y: 1, z: 1}
+   p2: {x: 10, y: 1, z: 1}
+   p1: {x: 1, y: 10, z: 1}
+---
+sphere:
+   radius: 1
+---
+cylinder:
+   radius: 1
+   height: 1
+---
+torus:
+   radius:      1
+   tube_radius: 1
+---
+cone:
+   small_radius: 0.2
+   big_radius: 1
+   height: 1
+---
+obj_model:
+   file_name: "stanford_bunny.obj"
