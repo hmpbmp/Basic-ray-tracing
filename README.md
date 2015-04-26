@@ -2,7 +2,7 @@
 Exercise project on ray tracing
 
 ## Implemented functionality
--Basix scene creation
+-Basic scene creation
 -Raytracing of basic objects
 -CSG operations
 
