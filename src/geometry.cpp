@@ -90,6 +90,9 @@ Intersection Plane::intersect ( Ray &ray ) {
 Intersection Triangle::intersect ( Ray &ray ) {
   Intersection inter;
   inter.dist = -1;
+  if ( !intersectAABB ( ray ) ) {
+    return inter;
+  }
   glm::vec3 edge1, edge2;
   glm::vec3 P, Q, T;
   glm::vec3 rayDirection = ray.getDirection();

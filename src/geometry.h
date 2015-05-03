@@ -54,7 +54,15 @@ private:
 
 class Triangle : public Object {
 public:
-  Triangle ( glm::vec3 first, glm::vec3 second, glm::vec3 third ) :p0 ( first ),p1 ( second ),p2 ( third ) {};
+  Triangle ( glm::vec3 first, glm::vec3 second, glm::vec3 third ) :p0 ( first ),p1 ( second ),p2 ( third ) {
+    min.x = glm::min ( glm::min ( p0.x, p1.x ), p2.x );
+    min.y = glm::min ( glm::min ( p0.y, p1.y ), p2.y );
+    min.z = glm::min ( glm::min ( p0.z, p1.z ), p2.z );
+
+    max.x = glm::max ( glm::max ( p0.x, p1.x ), p2.x );
+    max.y = glm::max ( glm::max ( p0.y, p1.y ), p2.y );
+    max.z = glm::max ( glm::max ( p0.z, p1.z ), p2.z );
+  };
   virtual Intersection intersect ( Ray &ray );
 private:
   glm::vec3 p0,p1,p2;
