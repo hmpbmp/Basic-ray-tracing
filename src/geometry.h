@@ -35,8 +35,8 @@ public:
   virtual Intersection intersect ( Ray &ray ) = 0 {};
 protected:
   bool intersectAABB ( Ray &ray );
-  bool vectorLess ( glm::vec3 &v1, glm::vec3 &v2 );
-  bool vectorGreater ( glm::vec3 &v1, glm::vec3 &v2 );
+  void detmin ( glm::vec3 &min, glm::vec3 &v);
+  void detmax ( glm::vec3 &max, glm::vec3 &v);
   glm::vec3 min, max;
 };
 
@@ -54,21 +54,7 @@ private:
 
 class Triangle : public Object {
 public:
-  Triangle ( glm::vec3 first, glm::vec3 second, glm::vec3 third ) :p0 ( first ),p1 ( second ),p2 ( third ) {
-    if ( vectorLess ( p0,p1 ) ) {
-      min = p0;
-      max = p1;
-    } else {
-      min = p1;
-      max = p0;
-    }
-    if ( vectorLess ( p2, min ) ) {
-      min = p2;
-    }
-    if ( vectorGreater ( p2,max ) ) {
-      max = p2;
-    }
-  };
+  Triangle ( glm::vec3 first, glm::vec3 second, glm::vec3 third ) :p0 ( first ),p1 ( second ),p2 ( third ) {};
   virtual Intersection intersect ( Ray &ray );
 private:
   glm::vec3 p0,p1,p2;
@@ -127,13 +113,13 @@ private:
 };
 
 
-/*class ObjModel : public Object {
+class ObjModel : public Object {
 public:
   ObjModel ( std::string filename );
   virtual Intersection intersect ( Ray &ray );
 private:
   std::string name;
   std::vector<Triangle> triangles;
-};     */
+};
 
 #endif

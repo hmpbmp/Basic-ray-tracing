@@ -289,8 +289,8 @@ void RayTracer::setHierarchyFromYAML ( YAMLObject *yamlHead , Node &node ) {
         node.obj = new Cone ( stof ( geom->map["big_radius"]->value ),stof ( geom->map["small_radius"]->value ), stof ( geom->map["height"]->value ) );
       }
       if ( geom->map.count ( "obj_model" ) ) {
-        //geom = geom->map["obj_model"];
-        //node.obj = new ObjModel ( geom->map["file_name"]->value );
+        geom = geom->map["obj_model"];
+        node.obj = new ObjModel ( geom->map["file_name"]->value );
         ;
       }
     }

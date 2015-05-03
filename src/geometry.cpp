@@ -5,13 +5,30 @@
 #include <iostream>
 
 
-bool Object::vectorLess ( glm::vec3 &v1, glm::vec3 &v2 ) {
-  return ( ( v1.x < v2.x ) && ( v1.y < v2.y ) && ( v1.z < v2.z ) );
+void Object::detmin ( glm::vec3 &min, glm::vec3 &v) {
+  if (v.x < min.x) {
+    min.x = v.x;
+  }
+  if (v.y < min.y) {
+    min.y = v.y;
+  }
+  if (v.z < min.z) {
+    min.z = v.z;
+  }
 }
 
-bool Object::vectorGreater ( glm::vec3 &v1, glm::vec3 &v2 ) {
-  return ( vectorLess ( v2,v1 ) && ( v1 != v2 ) );
+void Object::detmax ( glm::vec3 &max, glm::vec3 &v) {
+  if (v.x > max.x) {
+    max.x = v.x;
+  }
+  if (v.y > max.y) {
+    max.y = v.y;
+  }
+  if (v.z > max.z) {
+    max.z = v.z;
+  }
 }
+
 
 bool Object::intersectAABB ( Ray &ray ) {
   glm::vec3 tmin,tmax;
@@ -349,28 +366,33 @@ Intersection Cone::intersect ( Ray &ray ) {
   return inter;
 }
 
-//Intersection ObjModel::intersect ( Ray  &ray ) {
-/*Intersection tmp, min;
-min.dist = FLT_MAX;
-min.param = -1;
-if ( !intersectAABB ( ray ) ) {
-  return min;
-}
-for ( size_t i = 0; i < triangles.size(); i++ ) {
-  //tmp = triangles[i].intersect ( ray );
-  if ( ( tmp.param != -1 ) && ( tmp.dist < min.dist ) ) {
-    min = tmp;
+Intersection ObjModel::intersect ( Ray  &ray ) {
+  Intersection tmp, res;
+  float min_dist = FLT_MAX;
+  res.dist = -1;
+  if ( !intersectAABB ( ray ) ) {
+    return res;
   }
+  for ( size_t i = 0; i < triangles.size(); ++i ) {
+    tmp = triangles[i].intersect ( ray );
+    if ( ( tmp.dist != -1 ) && ( tmp.dist < min_dist ) ) {
+      min_dist   = tmp.dist;
+      res.dist   = tmp.dist;
+      res.point  = tmp.point;
+      res.normal = tmp.normal;
+    }
+    res.distances.insert ( res.distances.end(), tmp.distances.begin(), tmp.distances.end () );
+  }
+  std::sort ( std::begin ( res.distances ), std::end ( res.distances ) );
+  return res;
 }
-return min; */
-//Intersection emp;
-//return emp;
-//}
 
 
 
 
-/*ObjModel::ObjModel ( std::string filename ) :name ( filename ) {
+ObjModel::ObjModel ( std::string filename ) :name ( filename ) {
+  min = glm::vec3 ( FLT_MAX, FLT_MAX, FLT_MAX );
+  max = glm::vec3 ( -FLT_MAX, -FLT_MAX, -FLT_MAX );
   std::vector<tinyobj::shape_t> shapes;
   std::vector<tinyobj::material_t> materials;
 
@@ -382,32 +404,24 @@ return min; */
     return;
   }
 
-  for ( size_t i = 0; i < shapes.size(); i++ ) {
-    for ( size_t v = 0; v < shapes[i].mesh.positions.size() - 6; v += 3 ) {
-      glm::vec3 p0 ( shapes[i].mesh.positions[ ( v + 0 ) + 0], shapes[i].mesh.positions[ ( v + 0 ) + 1], shapes[i].mesh.positions[ ( v + 0 ) + 2] );
-      if ( vectorLess ( p0, min ) ) {
-        min = p0;
-      }
-      if ( vectorGreater ( p0, max ) ) {
-        max = p0;
-      }
-      glm::vec3 p1 ( shapes[i].mesh.positions[ ( v + 3 ) + 0], shapes[i].mesh.positions[ ( v + 3 ) + 1], shapes[i].mesh.positions[ ( v + 3 ) + 2] );
-      if ( vectorLess ( p1, min ) ) {
-        min = p1;
-      }
-      if ( vectorGreater ( p1, max ) ) {
-        max = p1;
-      }
-      glm::vec3 p2 ( shapes[i].mesh.positions[ ( v + 6 ) + 0], shapes[i].mesh.positions[ ( v + 6 ) + 1], shapes[i].mesh.positions[ ( v + 6 ) + 2] );
-      if ( vectorLess ( p2, min ) ) {
-        min = p2;
-      }
-      if ( vectorGreater ( p2, max ) ) {
-        max = p2;
-      }
-      triangles.push_back ( Triangle ( p0,p1,p2 ) );
+  for ( size_t i = 0; i < shapes.size(); ++i ) {
+    for ( size_t j = 0; j < shapes[i].mesh.indices.size() / 3; ++j ) {
+      int id0 = shapes[i].mesh.indices[3 * j];
+      glm::vec3 p0 ( shapes[i].mesh.positions[ 3 * id0 + 0], shapes[i].mesh.positions[ 3 * id0 + 1], shapes[i].mesh.positions[ 3 * id0 + 2] );
+      detmin(min,p0);
+      detmax(max,p0);
+      int id1 = shapes[i].mesh.indices[3 * j + 1];
+      glm::vec3 p1 ( shapes[i].mesh.positions[ 3 * id1 + 0], shapes[i].mesh.positions[ 3 * id1 + 1], shapes[i].mesh.positions[ 3 * id1 + 2] );
+      detmin(min,p1);
+      detmax(max,p1);
+      int id2 = shapes[i].mesh.indices[3 * j + 2];
+      glm::vec3 p2 ( shapes[i].mesh.positions[ 3 * id2 + 0], shapes[i].mesh.positions[ 3 * id2 + 1], shapes[i].mesh.positions[ 3 * id2 + 2] );
+      detmin(min,p2);
+      detmax(max,p2);
+      triangles.push_back ( Triangle ( p0, p1, p2 ) );
+
     }
   }
-}   */
+}
 
 
