@@ -38,9 +38,9 @@ void RayTracer::traceRay ( Ray &ray ) {
   if ( v.dist != -1 ) {
     distImage.setFloat ( x, y, v.dist );
     normImage.setPixelColor ( x, y , Color (
-                                ( unsigned char ) ( 255 * ( v.normal.z ) ),
-                                ( unsigned char ) ( 255 * ( v.normal.z ) ),
-                                ( unsigned char ) ( 255 * ( v.normal.z ) ) ) );
+                                ( unsigned char ) ( 127.5f * ( v.normal.z + 1.0f ) ),
+                                ( unsigned char ) ( 127.5f * ( v.normal.z + 1.0f ) ),
+                                ( unsigned char ) ( 127.5f * ( v.normal.z + 1.0f ) ) ) );
   } else {
     distImage.setFloat ( x, y, 0.0f );
     normImage.setPixelColor ( x, y , Color ( 0,0,0 ) );
