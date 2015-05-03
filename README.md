@@ -18,3 +18,4 @@ raytracer.exe --scene=scene.yaml --resolution_x=1024 --resolution_y=768 --output
 * [libyaml](https://github.com/yaml/libyaml) - A C library for parsing and emitting YAML 
 * [tinyobjloader](https://github.com/syoyo/tinyobjloader) - Tiny but poweful single file wavefront obj loader written in C++
 * [poly34](http://math.ivanovo.ac.ru/dalgebra/Khashin/poly/index_r.html) - Equation solver
+* [glm](https://github.com/g-truc/glm) - OpenGL Mathematics (GLM)
