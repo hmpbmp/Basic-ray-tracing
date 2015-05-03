@@ -1,7 +1,7 @@
 #include "argumentsparser.h"
 
 ArgumentsParser::ArgumentsParser ( int argc, char** argv ) {
-  for ( int i = 1; i < argc - 1; i++ ) {
+  for ( int i = 1; i < argc; i++ ) {
     parseStr ( std::string ( argv[i] ) );
   }
 }
