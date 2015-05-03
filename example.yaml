@@ -1,25 +1,25 @@
 ---
-# Все углы задаются в градусах
+# All angles are defined in degrees
 
-# Камера
+# Camera
 - camera:
    position: {x: 0, y: 0, z: 1}
    orientation: {h: 30, p: 15, r: 7.5}
    fov_x: 60
    fov_y: 30
-# Иерархия сцены
+# Scene hierarchy
 - node:
-   - lcs : {x: 1, y: 1, z: 1, h: 90, p: 34, r: 0, sx: 1, sy: 1, sz: 1} # Преобразование на верхний уровень, sx, xy, sz - масштаб, hpr - ориентация, xyz - смещение
-   - geometry # Геометрия для отрисовки, описана нижн
-   - node: # Дочерний узел
+   - lcs : {x: 1, y: 1, z: 1, h: 90, p: 34, r: 0, sx: 1, sy: 1, sz: 1} # Uppper level transform, sx, xy, sz - scale, hpr - orientation, xyz - translate
+   - geometry # Geometry; all types defined below
+   - node: # Child node
       #...
-   - node: # Дочерний узел
+   - node: # Child node
       #...
-   - csg_union:   # Операция CSG (csg_union, csg_difference, csg_intersection)
-      left_node:  # Левый операнд CSG
-      right_node: # Правый операнд CSG
+   - csg_union:   # CSG operation (csg_union, csg_difference, csg_intersection)
+      left_node:  # Left CSG operand
+      right_node: # Right CSG operand
 
-# Виды геометрии
+# Geometry types
 ---
 plane:
    normal : {x: 1, y: 1, z:1}
