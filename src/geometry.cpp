@@ -125,7 +125,7 @@ Intersection Triangle::intersect ( Ray &ray ) {
   if ( t > FLT_EPSILON ) {
     inter.dist= t;
     inter.point = rayOrigin + t * rayDirection;
-    inter.normal = glm::normalize ( glm::cross ( edge1,edge2 ) );
+    inter.normal = glm::normalize ( glm::cross ( edge2,edge1 ) );
     inter.distances.push_back ( t );
   }
   return inter;
